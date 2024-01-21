@@ -10,7 +10,7 @@ const NavBarPage: FC<NavBarPageProps> = () => (
           <div className="container d-flex justify-content-center align-items-center">
             <a className="navbar-brand" href="/home">
               <img
-                src=""
+                src="#"
                 alt="logo"
                 width={50}
               />

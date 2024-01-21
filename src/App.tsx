@@ -1,30 +1,30 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+
+import React from 'react';
+import ReactDOM from 'react-dom';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router } from 'react-router-dom';
-import AppRoutes from "./Routes";
+import AppRoutes from './Routes';
 import NavBarPage from './components/NavBarPage/NavBarPage';
 import FooterBarPage from './components/FooterBarPage/FooterBarPage';
 import "./styles/styles.css";
+import LoginPage from './components/LoginPage/LoginPage';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const logado: boolean = false;
 
   return (
     <>
-      <div>
+      <div className='Screen'>
         <Router>
-          //cabecalho
-          <NavBarPage />
+          {logado && <NavBarPage />}
 
-          // rotas
-          <div>
-            <AppRoutes />
-          </div>
-
-          // rodape
+          <AppRoutes />
+          
           <FooterBarPage />
         </Router>
       </div>

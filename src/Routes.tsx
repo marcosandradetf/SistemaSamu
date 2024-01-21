@@ -1,5 +1,15 @@
 import React from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import LoginPage from "./components/LoginPage/LoginPage";
 
-//const ProtectedRoute = ({ element, redirectTo, condition }) => (())
+const AppRoutes: React.FC = () => {
+  return (
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      {/* Adicione mais rotas conforme necessário */}
+      <Route path="" element={< f/>} />
+    </Routes>
+  );
+};
+
+export default AppRoutes;
