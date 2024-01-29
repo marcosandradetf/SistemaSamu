@@ -1,7 +1,9 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { ModalGerarChamadoWrapper } from './ModalGerarChamado.styled';
+import "../../styles/styles.css"
 
 interface FormData {
+   protocolo: string;
    solicitante: string;
    telefone: string;
    cidade: string;
@@ -10,7 +12,7 @@ interface FormData {
    bairro: string;
    pontoRef: string;
    [key: string]: string; // Index signature
- }
+}
 
 interface ModalGerarChamadoProps {
    isOpen: boolean;
@@ -20,6 +22,7 @@ interface ModalGerarChamadoProps {
 
 const ModalGerarChamado: FC<ModalGerarChamadoProps> = ({ isOpen, onClose }) => {
    const initialFormData: FormData = {
+      protocolo: "Gerado pelo backend",
       solicitante: "",
       telefone: "",
       cidade: "",
@@ -27,10 +30,56 @@ const ModalGerarChamado: FC<ModalGerarChamadoProps> = ({ isOpen, onClose }) => {
       numeral: "",
       bairro: "",
       pontoRef: "",
-    };
-  
-    const [formData, setFormData] = useState<FormData>(initialFormData);
+   };
 
+   // formulario
+   const [formData, setFormData] = useState<FormData>(initialFormData);
+
+   // autocomplete
+   const [logradouros, setLogradouros] = useState<string[]>([]);
+   const [sugestoesFiltradas, setSugestoesFiltradas] = useState<string[]>([]);
+
+
+   // buscar logradouros api
+   useEffect(() => {
+      const fetchLogradouros = async () => {
+         if (formData.logradouro.length >= 5) {
+            try {
+               // Array de caminhos para os dados JSON
+               const files = ['https://raw.githubusercontent.com/marcosandradetf/API_Logradouros_MG/main/bh_logradouros.json', 'https://raw.githubusercontent.com/marcosandradetf/API_Logradouros_MG/main/neves_logradouros.json'];
+
+               // Carrega todos os arquivos JSON simultaneamente
+               const responses = await Promise.all(files.map(file => fetch(file)));
+               const jsons = await Promise.all(responses.map(response => response.json()));
+
+               // Combina os arrays de endereços em um único array
+               const combinedLogradouros = jsons.reduce((accumulator, current) => [...accumulator, ...current], []);
+
+               // Remove duplicatas usando um Set
+               const dadosUnicos: string[] = Array.from(new Set(combinedLogradouros)) as string[];
+
+               setLogradouros(dadosUnicos);
+
+               // setando os dados em cache
+               const sugestoesFiltradas = logradouros.filter(item => item.toLowerCase().includes(formData.logradouro.toLowerCase()));
+               setSugestoesFiltradas(sugestoesFiltradas);
+            } catch (error) {
+               console.error('Erro ao carregar endereços:', error);
+            }
+         }
+      };
+
+      // Verifica se inputValue tem pelo menos 3 letras antes de fazer a busca
+      if (formData.logradouro.length >= 5) {
+         fetchLogradouros();
+      } else {
+         // Se o valor foi apagado, limpa o estado de logradouros
+         setLogradouros([]);
+         setSugestoesFiltradas([]);
+      }
+   }, [formData.logradouro]); // Adiciona inputValue como dependência para que o useEffect seja chamado quando inputValue mudar
+
+   // ao digitar
    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
 
@@ -40,6 +89,17 @@ const ModalGerarChamado: FC<ModalGerarChamadoProps> = ({ isOpen, onClose }) => {
       }));
    };
 
+   // ao clicar na opcao de logradouro sugerida
+   const handleOptionClick = (sugestao: string) => {
+      // Atualiza o valor do input e limpa a lista de sugestões
+      formData.logradouro = sugestao;
+      setLogradouros([]);
+      setSugestoesFiltradas([]);
+   };
+
+
+
+   // logica para enviar formulario para banco de dados
    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
 
@@ -58,10 +118,10 @@ const ModalGerarChamado: FC<ModalGerarChamadoProps> = ({ isOpen, onClose }) => {
       try {
          const response = await fetch("https://localhost:7085/api/enderecos", {
             method: "post",
-            headers:{
+            headers: {
                "Content-Type": "application/json",
             },
-            body:JSON.stringify(formData),
+            body: JSON.stringify(formData),
          });
          if (response.ok) {
             console.log("Formulário enviado:", formData);
@@ -69,7 +129,7 @@ const ModalGerarChamado: FC<ModalGerarChamadoProps> = ({ isOpen, onClose }) => {
          } else {
             console.error("Erro ao enviar o formulario");
          }
-      } catch(error) {
+      } catch (error) {
          console.error("Erro:", error);
       }
 
@@ -113,9 +173,20 @@ const ModalGerarChamado: FC<ModalGerarChamadoProps> = ({ isOpen, onClose }) => {
                   <div className='d-flex'>
                      <label className='form-label'>
                         Logradouro:
-                        <input type="text" name='logradouro'
+                        <input type="text"
+                           name='logradouro'
+                           id="logradouro"
                            value={formData.logradouro}
+                           list='sugestoes'
                            onChange={handleInputChange} className='form-control modalGerarLog' />
+                        <ul className={`lista-autocomplete-logr form-control ${sugestoesFiltradas.length == 0 ? 'd-none' : ''} `}>
+                           {sugestoesFiltradas.map((sugestao, index) => (
+                              <li key={index} onClick={() => handleOptionClick(sugestao)} >
+                                 {sugestao}
+                              </li>
+                           ))}
+                        </ul>
+
                      </label>
                      <label className='form-label'>
                         Numeral:

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZPw26QkrVpVQnZMAb/UgMwv67SOmXQI3fEaRPGvRYpXYGI0XWgOHSPYdKY3eqxZBySTp32eR5BG2gbZopGDnIA==",
+  "dgSpecHash": "9aoZPcqIXjwG7/LUbGwDGsg6oyC768VIu/5Qe2x87kK/ADCei2tCttX3SBBMjZ87aQmZwXA2knHfJT5H2oiZzw==",
   "success": true,
   "projectFilePath": "C:\\Users\\dev\\projects\\Sistema_Samu\\backend\\backend.csproj",
   "expectedPackageFiles": [
@@ -36,6 +36,7 @@
     "C:\\Users\\dev\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
     "C:\\Users\\dev\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\dev\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\dev\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\dev\\.nuget\\packages\\npgsql\\8.0.0\\npgsql.8.0.0.nupkg.sha512",
     "C:\\Users\\dev\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.0\\npgsql.entityframeworkcore.postgresql.8.0.0.nupkg.sha512",
     "C:\\Users\\dev\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",

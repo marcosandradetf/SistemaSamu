@@ -1,31 +1,31 @@
-.logo{
-    background-image: "/src/assets/logo.jpg";
-  }
+.logo {
+  background-image: "/src/assets/logo.jpg";
+}
 
 .modalGerar {
   width: 450px;
 }
 
-.modalGerarInputs{
+.modalGerarInputs {
   width: 400px;
   resize: none;
 }
 
-.modalGerarLog{
+.modalGerarLog {
   width: 320px;
   margin-right: 10px;
 }
 
-.modalGerarNum{
+.modalGerarNum {
   width: 70px;
 }
 
-.modalGerarSol{
+.modalGerarSol {
   width: 250px;
   margin-right: 10px;
 }
 
-.modalGerarFone{
+.modalGerarFone {
   width: 140px;
 }
 
@@ -34,7 +34,7 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
-.btn-gerar{
+.btn-gerar {
   width: 400px;
 }
 
@@ -48,4 +48,55 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+
+/* Estilos para a lista de opções */
+.lista-autocomplete-logr {
+  width: 320px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  /* Garante que a lista sobreponha outros elementos */
+  background-color: #fff;
+  /* Cor de fundo da lista */
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Sombra para efeito visual */
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  /* Para navegadores baseados em Gecko (Firefox) */
+  scrollbar-color: #f84848 #fff;
+  /* Para navegadores baseados em Gecko (Firefox) */
+}
+
+/* Estilos para a barra de rolagem e sua trilha em navegadores WebKit (Chrome, Safari) */
+.lista-autocomplete-logr::-webkit-scrollbar {
+  width: 30px;
+  /* Largura da barra de rolagem */
+}
+
+.lista-autocomplete-logr::-webkit-scrollbar-thumb {
+  background-color: #f84848;
+  /* Cor da barra de rolagem */
+}
+
+.lista-autocomplete-logr::-webkit-scrollbar-track {
+  background-color: #fff;
+  /* Cor da trilha da barra de rolagem */
+}
+
+/* Estilos para os itens da lista */
+.lista-autocomplete-logr li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* Estilo para realçar o item selecionado na lista (opcional) */
+.lista-autocomplete-logr li:hover {
+  background-color: #f84848;
+  color: white;
 }

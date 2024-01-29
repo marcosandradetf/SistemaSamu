@@ -23,8 +23,22 @@ namespace backend.Controllers
         [HttpPost]
         public async Task<IActionResult> AddEndereco([FromBody] Endereco endereco)
         {
-            await _enderecoRepository.AddEnderecoAsync(endereco);
-            return Ok(endereco);
+            try
+            {
+                await _enderecoRepository.AddEnderecoAsync(endereco);
+                return Ok(endereco);
+            }
+            catch (Exception ex)
+            {
+                // Registre ou manipule a exceção conforme necessário
+                System.Diagnostics.Debug.WriteLine($"Erro ao adicionar Endereco: {ex}");
+                return StatusCode(500, "Erro interno do servidor");
+            }
         }
+
+
+
+
+
     }
 }
